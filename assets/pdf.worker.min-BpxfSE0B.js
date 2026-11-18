@@ -1,0 +1,1 @@
+var e=`/bepulmed-ai/assets/pdf.worker.min-DKQKFyKK.js`;export{e as default};
