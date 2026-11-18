@@ -7,6 +7,8 @@ on:
   workflow_dispatch:
   push:
     paths: ["BepulMedAndroid/**", "bepulmed/web/**", ".github/workflows/android.yml"]
+permissions:
+  contents: write # публикация APK в Releases
 env:
   GITHUB_TOKEN: ${{ github.token }} # для api.github.com (скачивание go-pmtiles) без лимита
 jobs:
@@ -43,3 +45,12 @@ jobs:
         with:
           name: BepulMed-AI-apk
           path: BepulMedAndroid/build/BepulMed-AI-*.apk
+      - name: Релиз на GitHub (APK для скачивания)
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V=$(grep -m1 '^VERSION_NAME=' BepulMedAndroid/build.sh | cut -d'"' -f2)
+          NOTES=CHANGELOG_${V}_RU.md; [ -f "$NOTES" ] || { echo "BepulMed AI $V" > /tmp/notes.md; NOTES=/tmp/notes.md; }
+          gh release delete "v$V" -y --cleanup-tag || true
+          gh release create "v$V" BepulMedAndroid/build/BepulMed-AI-*.apk --title "BepulMed AI $V (Android)" --notes-file "$NOTES" --target "$GITHUB_SHA" --latest
