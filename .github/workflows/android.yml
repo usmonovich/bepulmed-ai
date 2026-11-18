@@ -1,0 +1,43 @@
+# Сборка APK со встроенной офлайн-картой Ташкента и снимком аптек/клиник (нужен интернет — он есть у GitHub).
+# Результат: Actions → запуск → Artifacts → BepulMed-AI-apk.
+# Ключ подписи: секреты ANDROID_KEYSTORE_B64 (base64 от .jks) и ANDROID_KS_PASS. Без них — временный ключ
+# (такой APK не обновит ранее установленный — удалите старый).
+name: Android build
+on:
+  workflow_dispatch:
+  push:
+    paths: ["BepulMedAndroid/**", "bepulmed/web/**", ".github/workflows/android.yml"]
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - name: Веб-зависимости и тесты
+        working-directory: bepulmed/web
+        run: npm ci && npx vitest run
+      - name: Офлайн-карта Ташкента (Protomaps / OpenStreetMap)
+        working-directory: bepulmed/web
+        run: bash scripts/fetch_tashkent_map.sh
+      - name: Снимок аптек и клиник Ташкента (OpenStreetMap)
+        working-directory: bepulmed/web
+        run: npx tsx scripts/prefetch_offline_data.ts || echo "::warning::Overpass недоступен — снимок не встроен, приложение скачает данные при первом подключении"
+      - name: Сборка веб-интерфейса
+        working-directory: bepulmed/web
+        run: npm run build
+      - name: Сборка APK
+        working-directory: BepulMedAndroid
+        env:
+          KS_PASS: ${{ secrets.ANDROID_KS_PASS }}
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+        run: |
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1); export PATH="$BT:$PATH"
+          if [ -n "$KS_B64" ]; then echo "$KS_B64" | base64 -d > bepulmed-release.jks; else echo "::warning::Временный ключ подписи"; fi
+          bash build.sh ../bepulmed/web/dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BepulMed-AI-apk
+          path: BepulMedAndroid/build/BepulMed-AI-*.apk

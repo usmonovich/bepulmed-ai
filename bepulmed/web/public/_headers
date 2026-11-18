@@ -1,0 +1,8 @@
+# Заголовки статики (Cloudflare Workers Static Assets). Mini App открывается внутри Telegram,
+# поэтому встраивание разрешено только Telegram Web; остальное — как в CSP из index.html.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: camera=(self), microphone=(self), geolocation=(self), payment=(), usb=(), interest-cohort=()
+  Content-Security-Policy: frame-ancestors 'self' https://web.telegram.org https://*.telegram.org

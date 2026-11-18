@@ -1,0 +1,49 @@
+# Веб-версия BepulMed AI на GitHub Pages: https://<логин>.github.io/<репозиторий>/
+# Собирается со встроенной офлайн-картой Ташкента и снимком аптек/клиник (у GitHub есть интернет).
+name: Web (GitHub Pages)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["bepulmed/web/**", ".github/workflows/pages.yml"]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Зависимости и тесты
+        working-directory: bepulmed/web
+        run: npm ci && npx vitest run
+      - name: Офлайн-карта Ташкента (Protomaps / OpenStreetMap)
+        working-directory: bepulmed/web
+        run: bash scripts/fetch_tashkent_map.sh || echo "::warning::Карта не скачалась — сайт будет без встроенной карты"
+      - name: Снимок аптек и клиник Ташкента (OpenStreetMap)
+        working-directory: bepulmed/web
+        run: npx tsx scripts/prefetch_offline_data.ts || echo "::warning::Overpass недоступен — снимок не встроен"
+      - name: Сборка
+        working-directory: bepulmed/web
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+        run: npm run build && cp dist/index.html dist/404.html && touch dist/.nojekyll
+      - uses: actions/configure-pages@v5
+        with: { enablement: true }
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: bepulmed/web/dist }
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

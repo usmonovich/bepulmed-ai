@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars*
+.env*
+# Ключ подписи APK — никогда не публиковать (в CI: секреты ANDROID_KEYSTORE_B64 / ANDROID_KS_PASS)
+*.jks
+*.keystore
+*.p12
+BepulMedAndroid/build/
+BepulMedAndroid/.cache/
+BepulMedAndroid/app/src/main/assets/www/
+BepulMedIOS/www/
+*.apk
+*.idsig
+.DS_Store

@@ -1,0 +1,44 @@
+name = "bepulmed-ai"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+# Один Worker отдаёт и Mini App (статические файлы), и API — один HTTPS-адрес, без CORS.
+[assets]
+directory = "../web/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/api/*", "/tg/*"]
+
+# Раз в минуту: лист ожидания (истёкшие предложения → следующему пациенту). Бесплатный тариф это позволяет.
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+GEMINI_MODEL = "gemini-3.5-flash-lite"
+GEMINI_FALLBACK_MODEL = "gemini-2.5-flash-lite"
+REQUIRE_TELEGRAM = "true"
+# Production safety defaults: no patient records on Cloudflare D1, no health data to foreign AI.
+PATIENT_DATA_HOST_APPROVED = "false"
+SERVER_HEALTH_CHAT_ENABLED = "false"
+EXTERNAL_AI_TRANSFER_APPROVED = "false"
+EXTERNAL_VOICE_TRANSFER_APPROVED = "false"
+# WEBAPP_URL = "https://bepulmed-ai.<ваш-субдомен>.workers.dev"
+
+# Секреты (НЕ в этот файл):
+#   npx wrangler secret put GEMINI_API_KEY
+#   npx wrangler secret put BOT_TOKEN
+#   npx wrangler secret put TG_WEBHOOK_SECRET
+#   npx wrangler secret put DGIS_KEY        # онлайн-справка: часы, рейтинг, отзывы (2GIS Places API, platform.2gis.ru)
+#   npx wrangler secret put VOICELAB_API_KEY      # голос (STT/TTS) и, по желанию, LLM
+# Чтобы отвечал LLM VoiceLab вместо Gemini: LLM_PROVIDER = "voicelab" и VOICELAB_LLM_MODEL = "<id из GET /v1/models>"
+
+# ДЕМО-БАЗА: Cloudflare D1 запрещена для реальных пациентских данных до отдельной юридической/инфраструктурной оценки.
+# Для production используйте БД на физически подтверждённой площадке в Узбекистане и отдельный backend.
+# База записи и очереди (Cloudflare D1, только локальное демо/тест).
+# 1) npx wrangler d1 create bepulmed   → вставьте выданный database_id ниже
+# 2) npx wrangler d1 migrations apply bepulmed --remote
+[[d1_databases]]
+binding = "DB"
+database_name = "bepulmed"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"

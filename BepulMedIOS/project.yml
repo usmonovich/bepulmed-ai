@@ -1,0 +1,30 @@
+# Запасной вариант: `brew install xcodegen && xcodegen generate` пересоздаст BepulMed.xcodeproj.
+name: BepulMed
+options:
+  bundleIdPrefix: uz.bepulmed
+  deploymentTarget:
+    iOS: "15.0"
+  developmentLanguage: ru
+targets:
+  BepulMed:
+    type: application
+    platform: iOS
+    sources:
+      - path: BepulMed
+        excludes: [www, Info.plist]
+      - path: BepulMed/www
+        type: folder
+        buildPhase: resources
+    info:
+      path: BepulMed/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: uz.bepulmed.app
+        PRODUCT_NAME: BepulMed
+        MARKETING_VERSION: "2.13"
+        CURRENT_PROJECT_VERSION: "33"
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: BepulMed/Info.plist
+        CODE_SIGN_STYLE: Automatic

@@ -1,0 +1,40 @@
+# Сборка iOS-приложения на Mac в облаке GitHub — без своего Mac.
+# Результат: BepulMed-AI-2.13-unsigned.ipa (Actions → запуск → Artifacts).
+# Неподписанный .ipa ставится через Sideloadly/AltStore с бесплатным Apple ID (подпись на 7 дней)
+# или подписывается своим сертификатом Apple Developer для TestFlight.
+name: iOS build
+on:
+  workflow_dispatch:
+  push:
+    paths: ["BepulMedIOS/**", "bepulmed/web/**", ".github/workflows/ios.yml"]
+jobs:
+  ios:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Офлайн-карта и снимок аптек/клиник Ташкента
+        run: |
+          cd bepulmed/web && npm ci
+          bash scripts/fetch_tashkent_map.sh
+          npx tsx scripts/prefetch_offline_data.ts || echo "::warning::Overpass недоступен — снимок не встроен"
+      - name: Веб-интерфейс → BepulMed/www
+        run: cd BepulMedIOS && ./prepare_www.sh
+      - name: Тесты веб-части
+        run: cd bepulmed/web && npx vitest run
+      - name: Сборка (без подписи)
+        run: |
+          cd BepulMedIOS
+          xcodebuild -project BepulMed.xcodeproj -scheme BepulMed -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+      - name: Упаковка .ipa
+        run: |
+          cd BepulMedIOS
+          mkdir -p Payload && cp -R build/Build/Products/Release-iphoneos/BepulMed.app Payload/
+          zip -qry BepulMed-AI-2.13-unsigned.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BepulMed-AI-2.13-ios
+          path: BepulMedIOS/BepulMed-AI-2.13-unsigned.ipa

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BepulMed AI</string>
+    <string name="no_app">Нет приложения, чтобы открыть ссылку</string>
+    <string name="choose_photo">Фото документа</string>
+    <string name="share_sos">Отправить SOS</string>
+</resources>

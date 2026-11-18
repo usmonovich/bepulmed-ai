@@ -1,0 +1,284 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B3D000000000000000000006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D000000000000000000001 /* AppDelegate.swift */; };
+		B3D000000000000000000007 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D000000000000000000002 /* WebViewController.swift */; };
+		B3D000000000000000000008 /* AssetSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D000000000000000000003 /* AssetSchemeHandler.swift */; };
+		B3D000000000000000000009 /* TileSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D000000000000000000004 /* TileSchemeHandler.swift */; };
+		B3D00000000000000000000A /* NativeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D000000000000000000005 /* NativeBridge.swift */; };
+		B3D00000000000000000000E /* bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = B3D00000000000000000000B /* bridge.js */; };
+		B3D00000000000000000000F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D00000000000000000000C /* Assets.xcassets */; };
+		B3D000000000000000000010 /* www in Resources */ = {isa = PBXBuildFile; fileRef = B3D00000000000000000000D /* www */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B3D000000000000000000012 /* BepulMed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BepulMed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D000000000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B3D000000000000000000002 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		B3D000000000000000000003 /* AssetSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSchemeHandler.swift; sourceTree = "<group>"; };
+		B3D000000000000000000004 /* TileSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSchemeHandler.swift; sourceTree = "<group>"; };
+		B3D000000000000000000005 /* NativeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeBridge.swift; sourceTree = "<group>"; };
+		B3D00000000000000000000B /* bridge.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bridge.js; sourceTree = "<group>"; };
+		B3D00000000000000000000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B3D00000000000000000000D /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		B3D000000000000000000011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B3D000000000000000000017 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B3D000000000000000000013 = {
+			isa = PBXGroup;
+			children = (
+				B3D000000000000000000014 /* BepulMed */,
+				B3D000000000000000000015 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B3D000000000000000000014 /* BepulMed */ = {
+			isa = PBXGroup;
+			children = (
+				B3D000000000000000000001 /* AppDelegate.swift */,
+				B3D000000000000000000002 /* WebViewController.swift */,
+				B3D000000000000000000003 /* AssetSchemeHandler.swift */,
+				B3D000000000000000000004 /* TileSchemeHandler.swift */,
+				B3D000000000000000000005 /* NativeBridge.swift */,
+				B3D00000000000000000000B /* bridge.js */,
+				B3D00000000000000000000C /* Assets.xcassets */,
+				B3D00000000000000000000D /* www */,
+				B3D000000000000000000011 /* Info.plist */,
+			);
+			path = BepulMed;
+			sourceTree = "<group>";
+		};
+		B3D000000000000000000015 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3D000000000000000000012 /* BepulMed.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B3D00000000000000000001A /* BepulMed */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3D000000000000000000021 /* Build configuration list for PBXNativeTarget "BepulMed" */;
+			buildPhases = (
+				B3D000000000000000000019 /* Check web bundle */,
+				B3D000000000000000000016 /* Sources */,
+				B3D000000000000000000017 /* Frameworks */,
+				B3D000000000000000000018 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BepulMed;
+			productName = BepulMed;
+			productReference = B3D000000000000000000012 /* BepulMed.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B3D00000000000000000001B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = B3D000000000000000000020 /* Build configuration list for PBXProject "BepulMed" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = ru;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				ru,
+				uz,
+				Base,
+			);
+			mainGroup = B3D000000000000000000013;
+			productRefGroup = B3D000000000000000000015 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B3D00000000000000000001A /* BepulMed */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B3D000000000000000000018 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D00000000000000000000E /* bridge.js in Resources */,
+				B3D00000000000000000000F /* Assets.xcassets in Resources */,
+				B3D000000000000000000010 /* www in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B3D000000000000000000019 /* Check web bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check web bundle";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -f \"$SRCROOT/BepulMed/www/index.html\" ]; then echo \"error: Нет BepulMed/www/index.html. Запустите ./prepare_www.sh (соберёт веб-интерфейс).\"; exit 1; fi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B3D000000000000000000016 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D000000000000000000006 /* AppDelegate.swift in Sources */,
+				B3D000000000000000000007 /* WebViewController.swift in Sources */,
+				B3D000000000000000000008 /* AssetSchemeHandler.swift in Sources */,
+				B3D000000000000000000009 /* TileSchemeHandler.swift in Sources */,
+				B3D00000000000000000000A /* NativeBridge.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B3D00000000000000000001C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B3D00000000000000000001D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B3D00000000000000000001E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 33;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BepulMed/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.13;
+				PRODUCT_BUNDLE_IDENTIFIER = uz.bepulmed.app;
+				PRODUCT_NAME = BepulMed;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		B3D00000000000000000001F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 33;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BepulMed/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.13;
+				PRODUCT_BUNDLE_IDENTIFIER = uz.bepulmed.app;
+				PRODUCT_NAME = BepulMed;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B3D000000000000000000020 /* Build configuration list for PBXProject "BepulMed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3D00000000000000000001C /* Debug */,
+				B3D00000000000000000001D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3D000000000000000000021 /* Build configuration list for PBXNativeTarget "BepulMed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3D00000000000000000001E /* Debug */,
+				B3D00000000000000000001F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B3D00000000000000000001B /* Project object */;
+}
