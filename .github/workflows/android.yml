@@ -7,6 +7,8 @@ on:
   workflow_dispatch:
   push:
     paths: ["BepulMedAndroid/**", "bepulmed/web/**", ".github/workflows/android.yml"]
+env:
+  GITHUB_TOKEN: ${{ github.token }} # для api.github.com (скачивание go-pmtiles) без лимита
 jobs:
   apk:
     runs-on: ubuntu-24.04

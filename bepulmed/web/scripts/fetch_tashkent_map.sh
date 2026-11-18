@@ -17,7 +17,9 @@ if [ ! -x "$PM" ]; then
     Linux-x86_64) PAT='Linux_x86_64\.tar\.gz' ;; Linux-aarch64) PAT='Linux_arm64\.tar\.gz' ;;
     Darwin-arm64) PAT='Darwin_arm64\.zip' ;; Darwin-x86_64) PAT='Darwin_x86_64\.zip' ;; *) echo "Неизвестная платформа"; exit 1 ;;
   esac
-  URL=$(curl -fsSL https://api.github.com/repos/protomaps/go-pmtiles/releases/latest \
+  # В GitHub Actions — с токеном: без него общий IP раннеров упирается в лимит API (HTTP 403)
+  AUTH=(); [ -n "${GITHUB_TOKEN:-}" ] && AUTH=(-H "Authorization: Bearer $GITHUB_TOKEN")
+  URL=$(curl -fsSL --retry 3 "${AUTH[@]}" https://api.github.com/repos/protomaps/go-pmtiles/releases/latest \
     | grep -o "\"browser_download_url\": *\"[^\"]*$PAT\"" | head -1 | cut -d'"' -f4)
   [ -n "$URL" ] || { echo "Не нашёл релиз go-pmtiles"; exit 1; }
   if [[ "$URL" == *.zip ]]; then curl -fsSL -o .cache/pm.zip "$URL" && unzip -o -q .cache/pm.zip pmtiles -d .cache; else curl -fsSL "$URL" | tar -xz -C .cache pmtiles; fi

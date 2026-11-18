@@ -7,6 +7,8 @@ on:
   workflow_dispatch:
   push:
     paths: ["BepulMedIOS/**", "bepulmed/web/**", ".github/workflows/ios.yml"]
+env:
+  GITHUB_TOKEN: ${{ github.token }} # для api.github.com (скачивание go-pmtiles) без лимита
 jobs:
   ios:
     runs-on: macos-15

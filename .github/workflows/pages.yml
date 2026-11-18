@@ -1,5 +1,5 @@
-# Веб-версия BepulMed AI на GitHub Pages: https://<логин>.github.io/<репозиторий>/
-# Собирается со встроенной офлайн-картой Ташкента и снимком аптек/клиник (у GitHub есть интернет).
+# Веб-версия BepulMed AI: https://<логин>.github.io/<репозиторий>/
+# Собирается со встроенной офлайн-картой Ташкента и снимком аптек/клиник и публикуется в ветку gh-pages.
 name: Web (GitHub Pages)
 on:
   workflow_dispatch:
@@ -7,14 +7,14 @@ on:
     branches: [main]
     paths: ["bepulmed/web/**", ".github/workflows/pages.yml"]
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 concurrency:
   group: pages
   cancel-in-progress: true
+env:
+  GITHUB_TOKEN: ${{ github.token }}
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -34,16 +34,11 @@ jobs:
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
         run: npm run build && cp dist/index.html dist/404.html && touch dist/.nojekyll
-      - uses: actions/configure-pages@v5
-        with: { enablement: true }
-      - uses: actions/upload-pages-artifact@v3
-        with: { path: bepulmed/web/dist }
-  deploy:
-    needs: build
-    runs-on: ubuntu-24.04
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Публикация в gh-pages
+        working-directory: bepulmed/web/dist
+        run: |
+          git init -q -b gh-pages
+          git -c user.name=github-actions -c user.email=github-actions@users.noreply.github.com add -A
+          git -c user.name=github-actions -c user.email=github-actions@users.noreply.github.com commit -qm "Deploy ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+          echo "### Сайт: https://${GITHUB_REPOSITORY_OWNER}.github.io/${{ github.event.repository.name }}/" >> "$GITHUB_STEP_SUMMARY"
